@@ -3,7 +3,7 @@ const router = require("express").Router();
 const User = require("../models/User.model");
 
 //====== Create route for user profile
-router.get("/profile", (req, res) => {
+router.get("/:userId", (req, res) => {
   const userId = req.user._id;
 
   User.findById(userId)
@@ -27,6 +27,7 @@ router.put("/:userId/edit", (req, res) => {
   const newDetails = {
     username: req.body.username,
     password: req.body.password,
+    email: req.body.email,
   };
 
   User.findByIdAndUpdate(userId, newDetails)

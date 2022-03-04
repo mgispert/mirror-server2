@@ -8,6 +8,7 @@ const userSchema = new Schema(
       unique: true,
     },
     password: String,
+    email: String,
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`
