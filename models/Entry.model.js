@@ -9,12 +9,21 @@ const entrySchema = new Schema({
   grateful: String,
   emotion: {
     type: "string",
-    enum: ["happy", "sad", "nothing", "tired", "angry"],
+    enum: [
+      "happy",
+      "sad",
+      "nothing",
+      "tired",
+      "proud",
+      "excited",
+      "anxious",
+      "angry",
+    ],
   },
   person: String,
   improvement: String,
   free: String,
-  creator: { type: { type: Schema.Types.ObjectId, ref: "User" } },
+  creator: { type: Schema.Types.ObjectId, ref: "User" },
 });
 
 module.exports = model("Entry", entrySchema);

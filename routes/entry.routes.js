@@ -2,6 +2,18 @@ const router = require("express").Router();
 const Entry = require("../models/Entry.model");
 const mongoose = require("mongoose");
 
+router.get("/", (req, res, next) => {
+  Entry.find({ creator: req.user._id })
+    .populate("creator")
+    .then((allEntries) => {
+      res.json(allEntries);
+    })
+
+    .catch((err) => {
+      res.status(500).json(err);
+    });
+});
+
 router.post("/create", (req, res) => {
   const entryDetails = {
     date: req.body.date,
@@ -29,12 +41,6 @@ router.post("/create", (req, res) => {
     });
 });
 
-router.get("/", (req, res, next) => {
-  Entry.find()
-    .then((allEntries) => res.json(allEntries))
-    .catch((err) => res.json(err));
-});
-
 router.get("/:entryId", (req, res, next) => {
   const { entryId } = req.params;
 
@@ -44,7 +50,6 @@ router.get("/:entryId", (req, res, next) => {
   }
 
   Entry.findById(entryId)
-
     .then((entry) => res.json(entry))
     .catch((err) => res.status(500).json(err));
 });
@@ -75,18 +80,14 @@ router.put("/:entryId/edit", (req, res, next) => {
     .catch((error) => res.status(500).json(error));
 });
 
-router.delete("/:entryId", (req, res, next) => {
+router.delete("/delete/:entryId", (req, res, next) => {
   const { entryId } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(entryId)) {
     res.status(400).json({ message: "Specified id is not valid" });
     return;
   }
-
-  Entry.findByIdAndRemove();
-
   Entry.findByIdAndRemove(entryId)
-
     .then(() =>
       res.json({
         message: `Entry with ${entryId} is removed successfully.`,
