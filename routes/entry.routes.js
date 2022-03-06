@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const Entry = require("../models/Entry.model");
 const mongoose = require("mongoose");
+const axios = require("axios");
 
 router.get("/", (req, res, next) => {
   Entry.find({ creator: req.user._id })
@@ -14,7 +15,11 @@ router.get("/", (req, res, next) => {
     });
 });
 
-router.post("/create", (req, res) => {
+router.post("/create", async (req, res) => {
+  const result = await axios.get(
+    "https://api.unsplash.com/photos/random?count=1&collections=8891183&topic=ocean-%2F-waves&orientation=landscape&client_id=tcXZZwEZZjh78fcogVpyj2g3VdmES9qZ0FL3S0QBm_U"
+  );
+
   const entryDetails = {
     date: req.body.date,
     title: req.body.title,
@@ -26,6 +31,9 @@ router.post("/create", (req, res) => {
     improvement: req.body.improvement,
     free: req.body.free,
     creator: req.user._id,
+    imageURL:
+      result?.data[0]?.urls?.small ||
+      "https://emodnet.ec.europa.eu/sites/emodnet.ec.europa.eu/files/public/Credits%20matt%20Hardy.jpg",
   };
 
   Entry.create(entryDetails)

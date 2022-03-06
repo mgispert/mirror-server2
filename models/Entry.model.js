@@ -24,6 +24,7 @@ const entrySchema = new Schema({
   improvement: String,
   free: String,
   creator: { type: Schema.Types.ObjectId, ref: "User" },
+  imageURL: String,
 });
 
 module.exports = model("Entry", entrySchema);
