@@ -32,7 +32,7 @@ router.post("/create", async (req, res) => {
     free: req.body.free,
     creator: req.user._id,
     imageURL:
-      result?.data[0]?.urls?.small ||
+      result?.data[0]?.urls?.regular ||
       "https://emodnet.ec.europa.eu/sites/emodnet.ec.europa.eu/files/public/Credits%20matt%20Hardy.jpg",
   };
 
