@@ -121,13 +121,17 @@ router.post("/login", (req, res, next) => {
     .then((user) => {
       // If the user isn't found, send the message that user provided wrong credentials
       if (!user) {
-        return res.status(400).json({ errorMessage: "Wrong credentials." });
+        return res
+          .status(400)
+          .json({ errorMessage: "Wrong credentials in username." });
       }
 
       // If user is found based on the username, check if the in putted password matches the one saved in the database
       bcrypt.compare(password, user.password).then((isSamePassword) => {
         if (!isSamePassword) {
-          return res.status(400).json({ errorMessage: "Wrong credentials." });
+          return res
+            .status(400)
+            .json({ errorMessage: "Wrong credentials in bcrypt." });
         }
         const authToken = generateToken(user);
 

@@ -1,5 +1,5 @@
 const router = require("express").Router();
-
+const bcrypt = require("bcrypt");
 const User = require("../models/User.model");
 
 //====== Create route for user profile
@@ -21,18 +21,22 @@ router.get("/:userId", (req, res) => {
 
 //====== Create get & post route for user edit
 
-router.put("/:userId/edit", (req, res) => {
+router.put("/:userId/edit", async (req, res) => {
   const userId = req.user._id;
 
   const newDetails = {
     username: req.body.username,
-    password: req.body.password,
+
     email: req.body.email,
   };
+  const salted = await bcrypt.genSalt(10);
+  const hashedPwd = await bcrypt.hash(req.body.password, salted);
+
+  newDetails.password = hashedPwd;
 
   User.findByIdAndUpdate(userId, newDetails)
-    .then((newDetails) => {
-      res.json(newDetails);
+    .then(() => {
+      res.json({});
     })
     .catch((err) => {
       res.status(500).json({
