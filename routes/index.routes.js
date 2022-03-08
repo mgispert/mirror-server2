@@ -13,7 +13,7 @@ router.get("/", (req, res, next) => {
 });
 
 router.use("/auth", authRoutes);
-router.use("/entry", isAuthenticated, entryRoutes);
+router.use("/entries", isAuthenticated, entryRoutes);
 router.use("/user", isAuthenticated, userRoutes);
 // router.use("/stats", /*isAuthenticated*/ statsRoutes);
 
