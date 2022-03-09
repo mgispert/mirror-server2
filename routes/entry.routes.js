@@ -23,12 +23,15 @@ router.post("/create", async (req, res) => {
   const entryDetails = {
     date: req.body.date,
     title: req.body.title,
-    isFavourite: req.body.isFavourite,
     grade: req.body.grade,
     grateful: req.body.grateful,
     emotion: req.body.emotion,
     person: req.body.person,
     improvement: req.body.improvement,
+    compliment: req.body.compliment,
+    lookingForward: req.body.lookingForward,
+    inspiration: req.body.inspiration,
+    need: req.body.need,
     free: req.body.free,
     creator: req.user._id,
     imageURL:
@@ -73,12 +76,16 @@ router.put("/:entryId/edit", (req, res, next) => {
   const entryDetails = {
     date: req.body.date,
     title: req.body.title,
-    isFavourite: req.body.isFavourite,
+
     grade: req.body.grade,
     grateful: req.body.grateful,
     emotion: req.body.emotion,
     person: req.body.person,
     improvement: req.body.improvement,
+    compliment: req.body.compliment,
+    lookingForward: req.body.lookingForward,
+    inspiration: req.body.inspiration,
+    need: req.body.need,
     free: req.body.free,
     creator: req.user,
   };
