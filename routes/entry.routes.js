@@ -21,7 +21,7 @@ router.post("/create", async (req, res) => {
   );
 
   const entryDetails = {
-    date: req.body.date,
+    date: Date.now(),
     title: req.body.title,
     grade: req.body.grade,
     grateful: req.body.grateful,
@@ -74,9 +74,7 @@ router.put("/:entryId/edit", (req, res, next) => {
   }
 
   const entryDetails = {
-    date: req.body.date,
     title: req.body.title,
-
     grade: req.body.grade,
     grateful: req.body.grateful,
     emotion: req.body.emotion,

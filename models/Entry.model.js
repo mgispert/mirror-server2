@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const { Schema, model } = mongoose;
 
 const entrySchema = new Schema({
-  date: String,
+  date: Number,
   title: String,
   grade: Number,
   grateful: String,
